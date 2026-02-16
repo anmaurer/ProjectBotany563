@@ -36,5 +36,7 @@ muscle -version
 ### Run MUSCLE on the anabantoid data
 
 ```
-muscle -align primatesAA.fasta -output aligned.fasta
+muscle -anabantoid.fasta -output aligned_anabantoid.fasta
 ```
+
+** Data not given in unaligned FASTA format, data given in already aligned Nexus files, so this step not run. Data given as UCE_loci_75p_complete.gzip   > gzip directory of nexus-formatted alignments for individual UCE loci. All alignments in this directory contain at least 75% of taxa in our total dataset. **
