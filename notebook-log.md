@@ -42,6 +42,8 @@ muscle -align anabantoid.fasta -output aligned_anabantoid.fasta
 ** Data not given in unaligned FASTA format, data given in already aligned Nexus files, so this step not run. Data given as UCE_loci_75p_complete.gzip   > gzip directory of nexus-formatted alignments for individual UCE loci. All alignments in this directory contain at least 75% of taxa in our total dataset. **
 
 ## Distance Tree Calculations
+--> I chose the first 10 UCE files (2 through 12) from the data set to make trees for 
+
 ### Installing neccessary packages
 ```
 install.packages("adegenet", dep=TRUE)
@@ -57,21 +59,31 @@ library(phangorn)
 ### Loading the data
 
 ```
-uce-2 <- read.nexus.data("uce-2.nex")
-uce-3 <- read.nexus.data("uce-3.nex")
-uce-4 <- read.nexus.data("uce-4.nex")
-uce-5 <- read.nexus.data("uce-5.nex")
-uce-6 <- read.nexus.data("uce-6.nex")
-uce-7 <- read.nexus.data("uce-7.nex")
-uce-8 <- read.nexus.data("uce-8.nex")
-uce-9 <- read.nexus.data("uce-9.nex")
-uce-10 <- read.nexus.data("uce-10.nex")
-uce-11 <- read.nexus.data("uce-11.nex")
-uce-12 <- read.nexus.data("uce-12.nex")
+Uce2 <- read.nexus.data("uce-2.nexus")
+Uce3 <- read.nexus.data("uce-3.nexus")
+Uce4 <- read.nexus.data("uce-4.nexus")
+Uce5 <- read.nexus.data("uce-5.nexus")
+Uce6 <- read.nexus.data("uce-6.nexus")
+Uce7 <- read.nexus.data("uce-7.nexus")
+Uce8 <- read.nexus.data("uce-8.nexus")
+Uce9 <- read.nexus.data("uce-9.nexus")
+Uce10 <- read.nexus.data("uce-10.nexus")
+Uce11 <- read.nexus.data("uce-11.nexus")
+Uce12 <- read.nexus.data("uce-12.nexus")
 ```
 ### Convert list to DNAbin
 ```
 Uce2bin <- nexus2DNAbin(Uce2)
+Uce3bin <- nexus2DNAbin(Uce3)
+Uce4bin <- nexus2DNAbin(Uce4)
+Uce5bin <- nexus2DNAbin(Uce5)
+Uce6bin <- nexus2DNAbin(Uce6)
+Uce7bin <- nexus2DNAbin(Uce7)
+Uce8bin <- nexus2DNAbin(Uce8)
+Uce9bin <- nexus2DNAbin(Uce9)
+Uce10bin <- nexus2DNAbin(Uce10)
+Uce11bin <- nexus2DNAbin(Uce11)
+Uce12bin <- nexus2DNAbin(Uce12)
 ```
 
 ### Computing the genetic distances
@@ -79,22 +91,81 @@ Tamura and Nei 1993 model chosen, which allows for different rates of transition
 
 ```
 Uce2D <- dist.dna(Uce2bin, model="TN93")
-A <- dist.dna(uce-2, model="TN93")
+Uce3D <- dist.dna(Uce3bin, model="TN93")
+Uce4D <- dist.dna(Uce4bin, model="TN93")
+Uce5D <- dist.dna(Uce5bin, model="TN93")
+Uce6D <- dist.dna(Uce6bin, model="TN93")
+Uce7D <- dist.dna(Uce7bin, model="TN93")
+Uce8D <- dist.dna(Uce8bin, model="TN93")
+Uce9D <- dist.dna(Uce9bin, model="TN93")
+Uce10D <- dist.dna(Uce10bin, model="TN93")
+Uce11D <- dist.dna(Uce11bin, model="TN93")
+Uce12D <- dist.dna(Uce12bin, model="TN93")
 ```
 
 ### Get the NJ tree
 ```
 tre2 <- nj(Uce2D)
+tre3 <- nj(Uce3D)
+tre4 <- nj(Uce4D)
+tre5 <- nj(Uce5D)
+tre6 <- nj(Uce6D)
+tre7 <- nj(Uce7D)
+tre8 <- nj(Uce8D)
+tre9 <- nj(Uce9D)
+tre10 <- nj(Uce10D)
+tre11 <- nj(Uce11D)
+tre12 <- nj(Uce12D)
 ```
 
 ### Ladderize
 Before plotting, we can use the ladderize function which reorganizes the internal structure of the tree to get the ladderized effect when plotted
 ```
 tre2L <- ladderize(tre2)
+tre3L <- ladderize(tre3)
+tre4L <- ladderize(tre4)
+tre5L <- ladderize(tre5)
+tre6L <- ladderize(tre6)
+tre7L <- ladderize(tre7)
+tre8L <- ladderize(tre8)
+tre9L <- ladderize(tre9)
+tre10L <- ladderize(tre10)
+tre11L <- ladderize(tre11)
+tre12L <- ladderize(tre12)
 ```
 
 ### Plot the tree
 ```
 plot(tre2L, cex=.6)
 title("UCE-2")
+
+plot(tre3L, cex=.6)
+title("UCE-3")
+
+plot(tre4L, cex=.6)
+title("UCE-4")
+
+plot(tre5L, cex=.6)
+title("UCE-5")
+
+plot(tre6L, cex=.6)
+title("UCE-6")
+
+plot(tre7L, cex=.6)
+title("UCE-7")
+
+plot(tre8L, cex=.6)
+title("UCE-8")
+
+plot(tre9L, cex=.6)
+title("UCE-9")
+
+plot(tre10L, cex=.6)
+title("UCE-10")
+
+plot(tre11L, cex=.6)
+title("UCE-11")
+
+plot(tre12L, cex=.6)
+title("UCE-12")
 ```
