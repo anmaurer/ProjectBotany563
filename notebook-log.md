@@ -40,3 +40,61 @@ muscle -align anabantoid.fasta -output aligned_anabantoid.fasta
 ```
 
 ** Data not given in unaligned FASTA format, data given in already aligned Nexus files, so this step not run. Data given as UCE_loci_75p_complete.gzip   > gzip directory of nexus-formatted alignments for individual UCE loci. All alignments in this directory contain at least 75% of taxa in our total dataset. **
+
+## Distance Tree Calculations
+### Installing neccessary packages
+```
+install.packages("adegenet", dep=TRUE)
+install.packages("phangorn", dep=TRUE)
+```
+
+### Loading the packages
+```
+library(ape)
+library(adegenet)
+library(phangorn)
+```
+### Loading the data
+
+```
+uce-2 <- read.nexus.data("uce-2.nex")
+uce-3 <- read.nexus.data("uce-3.nex")
+uce-4 <- read.nexus.data("uce-4.nex")
+uce-5 <- read.nexus.data("uce-5.nex")
+uce-6 <- read.nexus.data("uce-6.nex")
+uce-7 <- read.nexus.data("uce-7.nex")
+uce-8 <- read.nexus.data("uce-8.nex")
+uce-9 <- read.nexus.data("uce-9.nex")
+uce-10 <- read.nexus.data("uce-10.nex")
+uce-11 <- read.nexus.data("uce-11.nex")
+uce-12 <- read.nexus.data("uce-12.nex")
+```
+### Convert list to DNAbin
+```
+Uce2bin <- nexus2DNAbin(Uce2)
+```
+
+### Computing the genetic distances
+Tamura and Nei 1993 model chosen, which allows for different rates of transitions and transversions, heterogeneous base frequencies, and between-site variation of the substitution rate (more on Models of Evolution).
+
+```
+Uce2D <- dist.dna(Uce2bin, model="TN93")
+A <- dist.dna(uce-2, model="TN93")
+```
+
+### Get the NJ tree
+```
+tre2 <- nj(Uce2D)
+```
+
+### Ladderize
+Before plotting, we can use the ladderize function which reorganizes the internal structure of the tree to get the ladderized effect when plotted
+```
+tre2L <- ladderize(tre2)
+```
+
+### Plot the tree
+```
+plot(tre2L, cex=.6)
+title("UCE-2")
+```
