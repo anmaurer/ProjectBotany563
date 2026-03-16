@@ -256,3 +256,30 @@ tre15.ini <- nj(dist.dna(Uce15bin,model="raw"))
 parsimony(tre15.ini, Uce15P)
 ```
 
+### Search for the tree with maximum parsimony 
+```
+tre2.pars <- optim.parsimony(tre2.ini, Uce2P)
+tre3.pars <- optim.parsimony(tre3.ini, Uce3P)
+tre6.pars <- optim.parsimony(tre6.ini, Uce6P)
+tre7.pars <- optim.parsimony(tre7.ini, Uce7P)
+tre8.pars <- optim.parsimony(tre8.ini, Uce8P)
+tre9.pars <- optim.parsimony(tre9.ini, Uce9P)
+tre11.pars <- optim.parsimony(tre11.ini, Uce11P)
+tre13.pars <- optim.parsimony(tre13.ini, Uce13P)
+tre14.pars <- optim.parsimony(tre14.ini, Uce14P)
+tre15.pars <- optim.parsimony(tre15.ini, Uce15P)
+```
+
+### Plot tree
+```
+plot(tre2.pars, cex=0.6)
+plot(tre3.pars, cex=0.6)
+plot(tre6.pars, cex=0.6)
+plot(tre7.pars, cex=0.6)
+plot(tre8.pars, cex=0.6)
+plot(tre9.pars, cex=0.6)
+plot(tre11.pars, cex=0.6)
+plot(tre13.pars, cex=0.6)
+plot(tre14.pars, cex=0.6)
+plot(tre15.pars, cex=0.6)
+```
