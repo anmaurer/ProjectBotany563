@@ -44,15 +44,19 @@ muscle -align anabantoid.fasta -output aligned_anabantoid.fasta
 ## Distance Tree Calculations
 --> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
 
+## Set working directory in terminal then open R 
+
 ### Installing neccessary packages
 ```
 install.packages("adegenet", dep=TRUE)
+install.packages("phangorn", dep=TRUE)
 ```
 
 ### Loading the packages
 ```
 library(ape)
 library(adegenet)
+library(phangorn)
 ```
 ### Loading the data
 
@@ -161,7 +165,9 @@ title("UCE-15")
 ```
 
 ## Parsimony Tree Calculations
---> I chose the first 10 UCE files (2 through 12) from the data set to make trees for 
+--> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
+
+## Set working directory in terminal then open R 
 
 ### Installing neccessary packages
 ```
@@ -177,35 +183,76 @@ library(phangorn)
 ```
 
 ### Loading the data 
-'''
+```
 Uce2 <- read.nexus.data("uce-2.nexus")
 Uce3 <- read.nexus.data("uce-3.nexus")
-Uce4 <- read.nexus.data("uce-4.nexus")
-Uce5 <- read.nexus.data("uce-5.nexus")
 Uce6 <- read.nexus.data("uce-6.nexus")
 Uce7 <- read.nexus.data("uce-7.nexus")
 Uce8 <- read.nexus.data("uce-8.nexus")
 Uce9 <- read.nexus.data("uce-9.nexus")
-Uce10 <- read.nexus.data("uce-10.nexus")
 Uce11 <- read.nexus.data("uce-11.nexus")
-Uce12 <- read.nexus.data("uce-12.nexus")
-'''
+Uce13 <- read.nexus.data("uce-13.nexus")
+Uce14 <- read.nexus.data("uce-14.nexus")
+Uce15 <- read.nexus.data("uce-15.nexus")
+```
 
 ### Convert list to DNAbin
 ```
 Uce2bin <- nexus2DNAbin(Uce2)
 Uce3bin <- nexus2DNAbin(Uce3)
-Uce4bin <- nexus2DNAbin(Uce4)
-Uce5bin <- nexus2DNAbin(Uce5)
 Uce6bin <- nexus2DNAbin(Uce6)
 Uce7bin <- nexus2DNAbin(Uce7)
 Uce8bin <- nexus2DNAbin(Uce8)
 Uce9bin <- nexus2DNAbin(Uce9)
-Uce10bin <- nexus2DNAbin(Uce10)
 Uce11bin <- nexus2DNAbin(Uce11)
-Uce12bin <- nexus2DNAbin(Uce12)
+Uce13bin <- nexus2DNAbin(Uce13)
+Uce14bin <- nexus2DNAbin(Uce14)
+Uce15bin <- nexus2DNAbin(Uce15)
 ```
 
 ### Convert to phanghorn object
-
+```
 Uce2P <- as.phyDat(Uce2bin)
+Uce3P <- as.phyDat(Uce3bin)
+Uce6P <- as.phyDat(Uce6bin)
+Uce7P <- as.phyDat(Uce7bin)
+Uce8P <- as.phyDat(Uce8bin)
+Uce9P <- as.phyDat(Uce9bin)
+Uce11P <- as.phyDat(Uce11bin)
+Uce13P <- as.phyDat(Uce13bin)
+Uce14P <- as.phyDat(Uce14bin)
+Uce15P <- as.phyDat(Uce15bin)
+```
+### Create a starting tree for the search on tree space and compute the parsimony score of this tree 
+```
+tre2.ini <- nj(dist.dna(Uce2bin,model="raw"))
+parsimony(tre2.ini, Uce2P)
+
+tre3.ini <- nj(dist.dna(Uce3bin,model="raw"))
+parsimony(tre3.ini, Uce3P)
+
+tre6.ini <- nj(dist.dna(Uce6bin,model="raw"))
+parsimony(tre6.ini, Uce6P)
+
+tre7.ini <- nj(dist.dna(Uce2bin,model="raw"))
+parsimony(tre7.ini, Uce7P)
+
+tre8.ini <- nj(dist.dna(Uce8bin,model="raw"))
+parsimony(tre8.ini, Uce8P)
+
+tre9.ini <- nj(dist.dna(Uce9bin,model="raw"))
+parsimony(tre9.ini, Uce9P)
+
+tre11.ini <- nj(dist.dna(Uce11bin,model="raw"))
+parsimony(tre11.ini, Uce11P)
+
+tre13.ini <- nj(dist.dna(Uce13bin,model="raw"))
+parsimony(tre13.ini, Uce13P)
+
+tre14.ini <- nj(dist.dna(Uce14bin,model="raw"))
+parsimony(tre14.ini, Uce14P)
+
+tre15.ini <- nj(dist.dna(Uce15bin,model="raw"))
+parsimony(tre15.ini, Uce15P)
+```
+
