@@ -44,7 +44,7 @@ muscle -align anabantoid.fasta -output aligned_anabantoid.fasta
 ## Distance Tree Calculations
 --> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
 
-## Set working directory in terminal then open R 
+### Set working directory in terminal then open R 
 
 ### Installing neccessary packages
 ```
@@ -167,7 +167,7 @@ title("UCE-15")
 ## Parsimony Tree Calculations
 --> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
 
-## Set working directory in terminal then open R 
+### Set working directory in terminal then open R 
 
 ### Installing neccessary packages
 ```
