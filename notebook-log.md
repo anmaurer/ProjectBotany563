@@ -16,6 +16,7 @@ Mitochondrial and nuclear nucleotide sequence data was used to construct a phylo
 | Software | Description | Strengths | Weaknesses | Assumptions | User Choices |
 |---|---|---|---|---|---|
 | Muscle | Program for creating multiple alignments of protein sequences. Includes fast distance estimation using k mer counting, progressive alignment, and refinement using tree-dependent restricted partitioning. | Fast and accurate for large datasets | MUSCLE's accuracy drops when aligning highly divergent sequences | MUSCLE assumes using k-mer counting (a fast distance measurement) and then iterative refinment can produce results similiar to computationally expensive methods but faster | User choices TBD |
+|IQtree|Software for phylogenetic inference using maximum likelihood|Utilizes fast model selection via ModelFinder. IQtree faster than RAxML in optimization of model parameters|---|Two starting trees computed using maximum parsimony and neighbor joining which are then optimized by hill climbing nearest neighbor interchange moves. Uses stochastic NNI to escape local optima.|User choices TBD|
 
 ## Data alignment with MUSCLE
 ### Installation 
