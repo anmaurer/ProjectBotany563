@@ -286,6 +286,7 @@ plot(tre15.pars, cex=0.6)
 ```
 
 ## Maximum Likelihood Tree Calculations
+--> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
 
 ## IQtree
 ### Download IQtree 
@@ -294,6 +295,15 @@ https://iqtree.github.io/
 ### Input data 
 ```
 iqtree3 -s uce-2.nexus
+iqtree3 -s uce-3.nexus
+iqtree3 -s uce-6.nexus
+iqtree3 -s uce-7.nexus
+iqtree3 -s uce-8.nexus
+iqtree3 -s uce-9.nexus
+iqtree3 -s uce-11.nexus
+iqtree3 -s uce-13.nexus
+iqtree3 -s uce-14.nexus
+iqtree3 -s uce-15.nexus
 ```
 
 ### Check plot in R
@@ -301,35 +311,193 @@ iqtree3 -s uce-2.nexus
 library(ape)
 tre2 = read.tree(file="uce-2.nexus.treefile")
 plot(tre2)
+
+library(ape)
+tre3 = read.tree(file="uce-3.nexus.treefile")
+plot(tre3)
+
+library(ape)
+tre6 = read.tree(file="uce-6.nexus.treefile")
+plot(tre6)
+
+library(ape)
+tre7 = read.tree(file="uce-7.nexus.treefile")
+plot(tre7)
+
+library(ape)
+tre8 = read.tree(file="uce-8.nexus.treefile")
+plot(tre8)
+
+library(ape)
+tre9 = read.tree(file="uce-9.nexus.treefile")
+plot(tre9)
+
+library(ape)
+tre11 = read.tree(file="uce-11.nexus.treefile")
+plot(tre11)
+
+library(ape)
+tre13 = read.tree(file="uce-13.nexus.treefile")
+plot(tre13)
+
+library(ape)
+tre14 = read.tree(file="uce-14.nexus.treefile")
+plot(tre14)
+
+library(ape)
+tre15 = read.tree(file="uce-15.nexus.treefile")
+plot(tre15)
 ```
 
 ### Root tree
 ```
 plot(tre2)
 nodelabels()
-
 rtre = root(tre2, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre3)
+nodelabels()
+rtre = root(tre3, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre6)
+nodelabels()
+rtre = root(tre6, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre7)
+nodelabels()
+rtre = root(tre7, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre8)
+nodelabels()
+rtre = root(tre8, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre9)
+nodelabels()
+rtre = root(tre9, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre11)
+nodelabels()
+rtre = root(tre11, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre13)
+nodelabels()
+rtre = root(tre13, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre14)
+nodelabels()
+rtre = root(tre14, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+
+plot(tre15)
+nodelabels()
+rtre = root(tre15, node=151, resolve.root=TRUE)
 plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
 ```
 
 ### Close R
-### Quantify support for the estimated tree
+### Quantify support for the estimated tree- check what best fit model is for each on previous step
 ```
 iqtree -s uce-2.nexus -m TPM3u+I+R4 -b 10 -pre uce-2.nexus-iqtree-bootstrap
+
+iqtree -s uce-3.nexus -m XXXXXXXX T -b 10 -pre uce-3.nexus-iqtree-bootstrap
+
+iqtree -s uce-6.nexus -m XXXXXXXX -b 10 -pre uce-6.nexus-iqtree-bootstrap
+
+iqtree -s uce-7.nexus -m XXXXXXXX -b 10 -pre uce-7.nexus-iqtree-bootstrap
+
+iqtree -s uce-8.nexus -m XXXXXXXX -b 10 -pre uce-8.nexus-iqtree-bootstrap
+
+iqtree -s uce-9.nexus -m XXXXXXXX -b 10 -pre uce-9.nexus-iqtree-bootstrap
+
+iqtree -s uce-11.nexus -m XXXXXXXX -b 10 -pre uce-11.nexus-iqtree-bootstrap
+
+iqtree -s uce-13.nexus -m XXXXXXXX -b 10 -pre uce-13.nexus-iqtree-bootstrap
+
+iqtree -s uce-14.nexus -m XXXXXXXX -b 10 -pre uce-14.nexus-iqtree-bootstrap
+
+iqtree -s uce-15.nexus -m XXXXXXXX -b 10 -pre uce-15.nexus-iqtree-bootstrap
 ```
 
 ### Open R
 ### Plot tree again now with bootstrap support
 ```
 library(ape)
+
 tre2b = read.tree(file="uce-2.nexus-iqtree-bootstrap.treefile")
-plot(tre2b)
+plot(tre2b, type = "phylogram", cex = 0.3, no.margin = TRUE)
 nodelabels()
-
 rtre2b = root(tre2b, node=151, resolve.root=TRUE)
-plot(rtre2b)
+plot(rtre2b, type = "phylogram", cex = 0.3, no.margin = TRUE)
 nodelabels(rtre2b$node.label)
+
+tre3b = read.tree(file="uce-3.nexus-iqtree-bootstrap.treefile")
+plot(tre3b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre3b = root(tre3b, node=151, resolve.root=TRUE)
+plot(rtre3b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre3b$node.label)
+
+tre6b = read.tree(file="uce-6.nexus-iqtree-bootstrap.treefile")
+plot(tre6b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre6b = root(tre6b, node=151, resolve.root=TRUE)
+plot(rtre6b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre6b$node.label)
+
+tre7b = read.tree(file="uce-7.nexus-iqtree-bootstrap.treefile")
+plot(tre7b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre7b = root(tre7b, node=151, resolve.root=TRUE)
+plot(rtre7b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre7b$node.label)
+
+tre8b = read.tree(file="uce-8.nexus-iqtree-bootstrap.treefile")
+plot(tre8b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre8b = root(tre8b, node=151, resolve.root=TRUE)
+plot(rtre8b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre8b$node.label)
+
+tre9b = read.tree(file="uce-9.nexus-iqtree-bootstrap.treefile")
+plot(tre9b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre9b = root(tre9b, node=151, resolve.root=TRUE)
+plot(rtre9b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre9b$node.label)
+
+tre11b = read.tree(file="uce-11.nexus-iqtree-bootstrap.treefile")
+plot(tre11b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre11b = root(tre11b, node=151, resolve.root=TRUE)
+plot(rtre11b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre11b$node.label)
+
+tre13b = read.tree(file="uce-13.nexus-iqtree-bootstrap.treefile")
+plot(tre13b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre13b = root(tre13b, node=151, resolve.root=TRUE)
+plot(rtre13b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre13b$node.label)
+
+tre14b = read.tree(file="uce-14.nexus-iqtree-bootstrap.treefile")
+plot(tre14b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre14b = root(tre14b, node=151, resolve.root=TRUE)
+plot(rtre14b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre14b$node.label)
+
+tre15b = read.tree(file="uce-15.nexus-iqtree-bootstrap.treefile")
+plot(tre15b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels()
+rtre15b = root(tre15b, node=151, resolve.root=TRUE)
+plot(rtre15b, type = "phylogram", cex = 0.3, no.margin = TRUE)
+nodelabels(rtre15b$node.label)
 ```
-
-
-
