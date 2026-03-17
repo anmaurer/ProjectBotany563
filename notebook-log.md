@@ -283,3 +283,52 @@ plot(tre13.pars, cex=0.6)
 plot(tre14.pars, cex=0.6)
 plot(tre15.pars, cex=0.6)
 ```
+
+## Maximum Likelihood Tree Calculations
+
+## IQtree
+### Download IQtree 
+https://iqtree.github.io/ 
+
+### Input data 
+```
+iqtree3 -s uce-2.nexus
+```
+
+### Check plot in R
+```
+library(ape)
+tre2 = read.tree(file="uce-2.nexus.treefile")
+plot(tre2)
+```
+
+### Root tree
+```
+plot(tre2)
+nodelabels()
+
+rtre = root(tre2, node=151, resolve.root=TRUE)
+plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
+```
+
+### Close R
+### Quantify support for the estimated tree
+```
+iqtree -s uce-2.nexus -m TPM3u+I+R4 -b 10 -pre uce-2.nexus-iqtree-bootstrap
+```
+
+### Open R
+### Plot tree again now with bootstrap support
+```
+library(ape)
+tre2b = read.tree(file="uce-2.nexus-iqtree-bootstrap.treefile")
+plot(tre2b)
+nodelabels()
+
+rtre2b = root(tre2b, node=151, resolve.root=TRUE)
+plot(rtre2b)
+nodelabels(rtre2b$node.label)
+```
+
+
+
