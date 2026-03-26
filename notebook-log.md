@@ -288,6 +288,12 @@ plot(tre15.pars, cex=0.6)
 ## Maximum Likelihood Tree Calculations
 --> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
 
+## RAxML 
+``
+raxml-ng --check --msa primatesAA-aligned-muscle.fasta --model LG+G8+F
+``
+
+
 ## IQtree
 ### Download IQtree 
 https://iqtree.github.io/ 
