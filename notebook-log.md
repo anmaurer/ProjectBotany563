@@ -328,12 +328,35 @@ alignment15 <- read.nexus.data("uce-15.nexus")
 write.dna(alignment, file = "uce-15.phy", format = "sequential")
 ```
 
-### Run RAxML 
+### Run RAxML to calculate the ML tree
 
 ```
 raxml-ng --msa uce-2.phy --model LG+G8+F
+
+raxml-ng --msa uce-3.phy --model LG+G8+F
+
+raxml-ng --msa uce-6.phy --model LG+G8+F
+
+raxml-ng --msa uce-7.phy --model LG+G8+F
+
+raxml-ng --msa uce-8.phy --model LG+G8+F
+
+raxml-ng --msa uce-9.phy --model LG+G8+F
+
+raxml-ng --msa uce-11.phy --model LG+G8+F
+
+raxml-ng --msa uce-13.phy --model LG+G8+F
+
+raxml-ng --msa uce-14.phy --model LG+G8+F
+
+raxml-ng --msa uce-15.phy --model LG+G8+F
 ```
 
+### Run both ML and Bootstrap
+
+```
+raxml-ng --all --msa uce-2.fasta --model LG+G8+F --bs-trees 10 --uce-2-raxml-boostrap
+```
 
 ## IQtree
 ### Download IQtree 
