@@ -639,3 +639,130 @@ rtre15b = root(tre15b, node=151, resolve.root=TRUE)
 plot(rtre15b, type = "phylogram", cex = 0.3, no.margin = TRUE)
 nodelabels(rtre15b$node.label)
 ```
+## MrBayes 
+### Download MrBayes
+
+```
+conda install -c bioconda mrbayes
+```
+### Create a mrbayes block in a separate text file called mbblock.txt 
+#### This is the tutorial MrBayes Block!! Check to see if your data requires a different block
+
+```
+begin mrbayes;
+ set autoclose=yes;
+ prset brlenspr=unconstrained:exp(10.0);
+ prset shapepr=exp(1.0);
+ prset tratiopr=beta(1.0,1.0);
+ prset statefreqpr=dirichlet(1.0,1.0,1.0,1.0);
+ lset nst=2 rates=gamma ngammacat=4;
+ mcmcp ngen=10000 samplefreq=10 printfreq=100 nruns=1 nchains=3 savebrlens=yes;
+ outgroup Anacystis_nidulans;
+ mcmc;
+ sumt;
+end;
+```
+
+### Append the MrBayes block to the end of each nexus file 
+
+```
+cat uce-2.nexus mbblock.txt > uce-2-mb.nex
+
+cat uce-3.nexus mbblock.txt > uce-3-mb.nex
+
+cat uce-6.nexus mbblock.txt > uce-6-mb.nex
+
+cat uce-7.nexus mbblock.txt > uce-7-mb.nex
+
+cat uce-8.nexus mbblock.txt > uce-8-mb.nex
+
+cat uce-9.nexus mbblock.txt > uce-9-mb.nex
+
+cat uce-11.nexus mbblock.txt > uce-11-mb.nex
+
+cat uce-13.nexus mbblock.txt > uce-13-mb.nex
+
+cat uce-14.nexus mbblock.txt > uce-14-mb.nex
+
+cat uce-15.nexus mbblock.txt > uce-15-mb.nex
+```
+
+### Run MrBayes
+
+```
+mb uce-2-mb.nex
+
+mb uce-3-mb.nex
+
+mb uce-6-mb.nex
+
+mb uce-7-mb.nex
+
+mb uce-8-mb.nex
+
+mb uce-9-mb.nex
+
+mb uce-11-mb.nex
+
+mb uce-13-mb.nex
+
+mb uce-14-mb.nex
+
+mb uce-15-mb.nex
+```
+
+### Uce Tracer to access if the chain converged and had good mixing 
+Go to File --> Import Trace file and select uce-X-mb.nex.p
+
+Look at the trace plot:
+
+Good behavior:
+The trace looks like a fuzzy horizontal band
+No obvious trends up or down after burn-in
+Bad behavior:
+Strong trends
+Long flat stretches
+Sudden jumps followed by no mixing
+ESS Rules of thumb:
+
+ESS > 200 → acceptable
+ESS > 500 → good
+ESS < 100 → problematic
+
+### Basic Plots in R (Open R)
+
+```
+library(ape)
+
+tre2 = read.nexus(file="uce-2-mb.nex.con.tre")
+plot(tre2)
+
+tre3 = read.nexus(file="uce-3-mb.nex.con.tre")
+plot(tre3)
+
+tre6 = read.nexus(file="uce-6-mb.nex.con.tre")
+plot(tre6)
+
+tre7 = read.nexus(file="uce-7-mb.nex.con.tre")
+plot(tre7)
+
+tre8 = read.nexus(file="uce-8-mb.nex.con.tre")
+plot(tre8)
+
+tre9 = read.nexus(file="uce-9-mb.nex.con.tre")
+plot(tre9)
+
+tre11 = read.nexus(file="uce-11-mb.nex.con.tre")
+plot(tre11)
+
+tre13 = read.nexus(file="uce-13-mb.nex.con.tre")
+plot(tre13)
+
+tre14 = read.nexus(file="uce-14-mb.nex.con.tre")
+plot(tre14)
+
+tre15 = read.nexus(file="uce-15-mb.nex.con.tre")
+plot(tre15)
+```
+
+
