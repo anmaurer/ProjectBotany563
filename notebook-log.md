@@ -661,7 +661,7 @@ begin mrbayes;
 
     mcmcp ngen=1000000 samplefreq=100 printfreq=1000 nruns=2 nchains=4 savebrlens=yes;
 
-    outgroup Channa_bleheri_48 Channa_marulius_20236 Parachanna_obscura_20222;
+    outgroup Channa_bleheri_48;
 
     mcmc;
     sumt;
