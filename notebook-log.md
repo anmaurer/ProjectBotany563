@@ -650,16 +650,21 @@ conda install -c bioconda mrbayes
 
 ```
 begin mrbayes;
- set autoclose=yes;
- prset brlenspr=unconstrained:exp(10.0);
- prset shapepr=exp(1.0);
- prset tratiopr=beta(1.0,1.0);
- prset statefreqpr=dirichlet(1.0,1.0,1.0,1.0);
- lset nst=2 rates=gamma ngammacat=4;
- mcmcp ngen=10000 samplefreq=10 printfreq=100 nruns=1 nchains=3 savebrlens=yes;
- outgroup Anacystis_nidulans;
- mcmc;
- sumt;
+    set autoclose=yes;
+
+    prset brlenspr=unconstrained:exp(10.0);
+    prset shapepr=exp(1.0);
+    prset tratiopr=beta(1.0,1.0);
+    prset statefreqpr=dirichlet(1.0,1.0,1.0,1.0);
+
+    lset nst=2 rates=gamma ngammacat=4;
+
+    mcmcp ngen=1000000 samplefreq=100 printfreq=1000 nruns=2 nchains=4 savebrlens=yes;
+
+    outgroup Channa_bleheri_48 Channa_marulius_20236 Parachanna_obscura_20222;
+
+    mcmc;
+    sumt;
 end;
 ```
 
