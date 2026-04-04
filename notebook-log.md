@@ -385,52 +385,52 @@ raxml-ng --all --msa uce-15.phy --model LG+G8+F --bs-trees 100 --prefix uce-15-r
 library(ape)
 
 tre2 = read.tree(file="uce-2-raxml-boostrap.raxml.support")
-rtre2 = root(tre2, node=33, resolve.root=TRUE)
+rtre2 = root(tre2, node=151, resolve.root=TRUE)
 plot(rtre2)
 nodelabels(rtre2$node.label)
 
 tre3 = read.tree(file="uce-3-raxml-boostrap.raxml.support")
-rtre3 = root(tre3, node=33, resolve.root=TRUE)
+rtre3 = root(tre3, node=151, resolve.root=TRUE)
 plot(rtre3)
 nodelabels(rtre3$node.label)
 
 tre6 = read.tree(file="uce-6-raxml-boostrap.raxml.support")
-rtre6 = root(tre6, node=33, resolve.root=TRUE)
+rtre6 = root(tre6, node=151, resolve.root=TRUE)
 plot(rtre6)
 nodelabels(rtre6$node.label)
 
 tre7 = read.tree(file="uce-7-raxml-boostrap.raxml.support")
-rtre7 = root(tre7, node=33, resolve.root=TRUE)
+rtre7 = root(tre7, node=151, resolve.root=TRUE)
 plot(rtre7)
 nodelabels(rtre7$node.label)
 
 tre8 = read.tree(file="uce-8-raxml-boostrap.raxml.support")
-rtre8 = root(tre8, node=33, resolve.root=TRUE)
+rtre8 = root(tre8, node=151, resolve.root=TRUE)
 plot(rtre8)
 nodelabels(rtre8$node.label)
 
 tre9 = read.tree(file="uce-9-raxml-boostrap.raxml.support")
-rtre9 = root(tre9, node=33, resolve.root=TRUE)
+rtre9 = root(tre9, node=151, resolve.root=TRUE)
 plot(rtre9)
 nodelabels(rtre9$node.label)
 
 tre11 = read.tree(file="uce-11-raxml-boostrap.raxml.support")
-rtre11 = root(tre11, node=33, resolve.root=TRUE)
+rtre11 = root(tre11, node=151, resolve.root=TRUE)
 plot(rtre11)
 nodelabels(rtre11$node.label)
 
 tre13 = read.tree(file="uce-13-raxml-boostrap.raxml.support")
-rtre13 = root(tre13, node=33, resolve.root=TRUE)
+rtre13 = root(tre13, node=151, resolve.root=TRUE)
 plot(rtre13)
 nodelabels(rtre13$node.label)
 
 tre14 = read.tree(file="uce-14-raxml-boostrap.raxml.support")
-rtre14 = root(tre14, node=33, resolve.root=TRUE)
+rtre14 = root(tre14, node=151, resolve.root=TRUE)
 plot(rtre14)
 nodelabels(rtre14$node.label)
 
 tre15 = read.tree(file="uce-15-raxml-boostrap.raxml.support")
-rtre15 = root(tre15, node=33, resolve.root=TRUE)
+rtre15 = root(tre15, node=151, resolve.root=TRUE)
 plot(rtre15)
 nodelabels(rtre15$node.label)
 ```
