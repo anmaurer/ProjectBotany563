@@ -20,6 +20,7 @@ Mitochondrial and nuclear nucleotide sequence data was used to construct a phylo
 |RAxML|RAxML is an open-source software that estimates maximum likelihood phylogenies|RAxML typically finds higher-scoring trees than IQTree|IQTree typically finds trees with better stability|RAxML uses randomized stepwise addition parsimony trees. RAxML does model support for you, and supports 22 classical GTR models. RAxML can support DNA and protein data, as well as binary, multi-state morphological and RNA secondary structure data. RAxML can correct for ascertainment bias.|All model parameters can either be optimized or fixed to user-specified values. User needs to check what model RAxML chooses. |
 |IQtree|Software for phylogenetic inference using maximum likelihood|Utilizes fast model selection via ModelFinder. IQtree faster than RAxML in optimization of model parameters|---|Two starting trees computed using maximum parsimony and neighbor joining which are then optimized by hill climbing nearest neighbor interchange moves. Uses stochastic NNI to escape local optima.|User choices TBD|
 |MrBayes|The program performs Bayesian inference of phylogeny using a variant of Markov chain monte carlo|Bayesian inference allows for the incorporation of prior knowledge, no longer need homogenous data, and the user can account for complexity. Bayesian phylogenetic inference promises users direct probability statements about trees/clades, integration over uncertainty, and use of prior information. MCMC is used to approximate the posterior probabilities of trees. MrBayes allows for mixed models and higher computation efficiency. Can unlink topology and branch lengths. Allows for analysis of more than 350 taxa.|MCMC has a high computational cost, and exact computation of the posterior is impossible. Slow.|Assumes all parameters are random variables. |User must choose substitution model, the prior, and the details of the MCMC analysis (number of generations, how convergence was assessed, effective sample size etc.)|
+|Astral|Coalescent method for reconstructing species tree after inferring a set of gene trees.|Statistically consistent under the multi-species coalescent model, is scalable, and has shown high accuracy in simulated and empirical studies. |Astral can be sensitive to gene tree estimation error. Astral is statistically inconsistent under models of gene evolution that include gene flow.|Assumes Multi-species coalescent model, maxmizes the number of shared quartet trees with the input gene trees which must be unrooted.|User must provide Newick format gene trees|
 
 ## Data alignment with MUSCLE
 ### Installation 
@@ -770,16 +771,23 @@ tre15 = read.nexus(file="uce-15-mb.nex.con.tre")
 plot(tre15)
 ```
 
-## Running Astral for Coales
-### run Astral on an input file and save to an ouput file
+## Running Astral for Coalescent Methods
+### Astral only takes Newick files, so concatenate previous treefiles from IQTree in Anabantoid WD
+```
+cat *.treefile > gene_trees.tre
 ```
 
+### Move file to ASTRAL WD
+### Run ASTRAL
+```
+
+java -jar astral.5.7.8.jar -i gene_trees.tre -o out.tre
 ```
 
 ### plot tree in R
 ```
 library(ape)
-tre = read.tree(file="song-astral.tre")
+tre = read.tree(file="out.tre")
 plot(tre)
 ```
 
