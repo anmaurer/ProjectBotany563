@@ -770,4 +770,16 @@ tre15 = read.nexus(file="uce-15-mb.nex.con.tre")
 plot(tre15)
 ```
 
+## Running Astral for Coales
+### run Astral on an input file and save to an ouput file
+```
+
+```
+
+### plot tree in R
+```
+library(ape)
+tre = read.tree(file="song-astral.tre")
+plot(tre)
+```
 
