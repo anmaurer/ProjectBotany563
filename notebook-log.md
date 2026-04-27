@@ -318,7 +318,7 @@ tre14.pars <- optim.parsimony(tre14.ini, Uce14P)
 tre15.pars <- optim.parsimony(tre15.ini, Uce15P)
 ```
 
-### Plot tree
+### Plot tree (basic)
 ```
 plot(tre2.pars, cex=0.6)
 plot(tre3.pars, cex=0.6)
@@ -330,6 +330,51 @@ plot(tre11.pars, cex=0.6)
 plot(tre13.pars, cex=0.6)
 plot(tre14.pars, cex=0.6)
 plot(tre15.pars, cex=0.6)
+```
+
+### Plot tree more legibly (Vertical)
+```
+pdf("UCE2_Ptree_vertical.pdf", width = 10, height = 20)
+plot(tre2.pars, cex = 0.5)
+title("UCE-2 Parsimony Tree")
+dev.off()
+
+pdf("UCE3_Ptree_vertical.pdf", width = 10, height = 20)
+plot(tre3.pars, cex = 0.5)
+title("UCE-3 Parsimony Tree")
+dev.off()
+
+pdf("UCE6_Ptree_vertical.pdf", width = 10, height = 20)
+plot(tre6.pars, cex = 0.5)
+title("UCE-6 Parsimony Tree")
+dev.off()
+```
+
+### Plot tree more legibly (Fan)
+```
+pdf("UCE2_Ptree_fan.pdf", width = 12, height = 12)
+plot(tre2.pars,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-2 Parsimony Tree")
+dev.off()
+
+pdf("UCE3_Ptree_fan.pdf", width = 12, height = 12)
+plot(tre3.pars,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-3 Parsimony Tree")
+dev.off()
+
+pdf("UCE6_Ptree_fan.pdf", width = 12, height = 12)
+plot(tre6.pars,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-6 Parsimony Tree")
+dev.off()
 ```
 
 ## Maximum Likelihood Tree Calculations
