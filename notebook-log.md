@@ -167,8 +167,10 @@ title("UCE-14")
 
 plot(tre15L, cex=.6)
 title("UCE-15")
+```
 
 ### Plot the tree more legibly (vertical)
+
 ```
 pdf("UCE2_tree_vertical.pdf", width = 10, height = 20)
 plot(tre2L, cex = 0.5)
@@ -182,6 +184,7 @@ pdf("UCE6_tree_vertical.pdf", width = 10, height = 20)
 plot(tre6L, cex = 0.5)
 dev.off() 
 ```
+
 ### Plot the tree more legibly (fan)
 ```
 pdf("UCE2_tree.pdf", width = 12, height = 12)
@@ -208,7 +211,6 @@ plot(tre6L,
 title("UCE-6")
 dev.off()
 ```
-
 
 ## Parsimony Tree Calculations
 --> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
