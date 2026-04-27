@@ -523,6 +523,56 @@ rtre15 = root(tre15, node=151, resolve.root=TRUE)
 plot(rtre15)
 nodelabels(rtre15$node.label)
 ```
+### Plot tree more legibly (vertical)
+```
+tre2 = read.tree(file="uce-2-raxml-boostrap.raxml.support")
+rtre2 = root(tre2, node=151, resolve.root=TRUE)
+pdf("UCE2_MLtree_vertical.pdf", width = 10, height = 20)
+plot(rtre2, cex = 0.5)
+title("UCE-2 Maximum Likelihood Tree")
+dev.off()
+
+tre3 = read.tree(file="uce-3-raxml-boostrap.raxml.support")
+rtre3 = root(tre3, node=151, resolve.root=TRUE)
+pdf("UCE2_MLtree_vertical.pdf", width = 10, height = 20)
+plot(rtre3, cex = 0.5)
+title("UCE-3 Maximum Likelihood Tree")
+dev.off()
+
+tre6 = read.tree(file="uce-6-raxml-boostrap.raxml.support")
+rtre6 = root(tre6, node=151, resolve.root=TRUE)
+pdf("UCE6_MLtree_vertical.pdf", width = 10, height = 20)
+plot(rtre6, cex = 0.5)
+title("UCE-6 Maximum Likelihood Tree")
+dev.off()
+```
+
+### Plot tree more legibly (fan)
+```
+pdf("UCE2_MLtree_fan.pdf", width = 12, height = 12)
+plot(rtre2,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-2 Maximum Likelihood Tree")
+dev.off()
+
+pdf("UCE3_MLtree_fan.pdf", width = 12, height = 12)
+plot(rtre3,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-3 Maximum Likelihood Tree")
+dev.off()
+
+pdf("UCE6_MLtree_fan.pdf", width = 12, height = 12)
+plot(rtre6,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-6 Maximum Likelihood Tree")
+dev.off()
+```
 
 ## IQtree
 ### Download IQtree 
