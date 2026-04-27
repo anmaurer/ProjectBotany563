@@ -390,34 +390,34 @@ RAxML cannot read Nexus format. Nexus files can be converted to PHYLIP format, w
 ```
 library (ape)
 alignment2 <- read.nexus.data("uce-2.nexus")
-write.dna(alignment, file = "uce-2.phy", format = "sequential")
+write.dna(alignment2, file = "uce-2.phy", format = "sequential")
 
 alignment3 <- read.nexus.data("uce-3.nexus")
-write.dna(alignment, file = "uce-3.phy", format = "sequential")
+write.dna(alignment3, file = "uce-3.phy", format = "sequential")
 
 alignment6 <- read.nexus.data("uce-6.nexus")
-write.dna(alignment, file = "uce-6.phy", format = "sequential")
+write.dna(alignment6, file = "uce-6.phy", format = "sequential")
 
 alignment7 <- read.nexus.data("uce-7.nexus")
-write.dna(alignment, file = "uce-7.phy", format = "sequential")
+write.dna(alignment7, file = "uce-7.phy", format = "sequential")
 
 alignment8 <- read.nexus.data("uce-8.nexus")
-write.dna(alignment, file = "uce-8.phy", format = "sequential")
+write.dna(alignment8, file = "uce-8.phy", format = "sequential")
 
 alignment9 <- read.nexus.data("uce-9.nexus")
-write.dna(alignment, file = "uce-9.phy", format = "sequential")
+write.dna(alignment9, file = "uce-9.phy", format = "sequential")
 
 alignment11 <- read.nexus.data("uce-11.nexus")
-write.dna(alignment, file = "uce-11.phy", format = "sequential")
+write.dna(alignment11, file = "uce-11.phy", format = "sequential")
 
 alignment13 <- read.nexus.data("uce-13.nexus")
-write.dna(alignment, file = "uce-13.phy", format = "sequential")
+write.dna(alignment13, file = "uce-13.phy", format = "sequential")
 
 alignment14 <- read.nexus.data("uce-14.nexus")
-write.dna(alignment, file = "uce-14.phy", format = "sequential")
+write.dna(alignment14, file = "uce-14.phy", format = "sequential")
 
 alignment15 <- read.nexus.data("uce-15.nexus")
-write.dna(alignment, file = "uce-15.phy", format = "sequential")
+write.dna(alignment15, file = "uce-15.phy", format = "sequential")
 ```
 
 ### Run RAxML to calculate the ML tree
