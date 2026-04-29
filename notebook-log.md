@@ -2,9 +2,9 @@
 (Written by Ari Maurer in Spring 2026) 
 
 ## Dataset for class final project
-Molecular Phylogenetics and Evolutionary Diversification of Labyrinth Fishes (Perciformes: Anabantoidei) by Lukas Rüber , Ralf Britz , Rafael Zardoya (2006)
+Dispersal sweepstakes: Biotic interchange propelled air-breathing fishes across the globe by Harrington et al., 2024
 
-Full text PDF: https://www.researchgate.net/publication/6925298_Molecular_Phylogenetics_and_Evolutionary_Diversification_of_Labyrinth_Fishes_Perciformes_Anabantoidei
+Full text PDF: https://deepblue.lib.umich.edu/items/e98808ae-5575-453f-99dc-f92c9ec2bc87 
 
 Dataset available from: 
 https://datadryad.org/dataset/doi:10.5061/dryad.59zw3r2c0 
@@ -534,8 +534,8 @@ dev.off()
 
 tre3 = read.tree(file="uce-3-raxml-boostrap.raxml.support")
 rtre3 = root(tre3, node=151, resolve.root=TRUE)
-pdf("UCE2_MLtree_vertical.pdf", width = 10, height = 20)
-plot(rtre3, cex = 0.5)
+pdf("UCE3_MLtree_vertical.pdf", width = 10, height = 20)
+plot(tre3, cex = 0.5)
 title("UCE-3 Maximum Likelihood Tree")
 dev.off()
 
@@ -558,7 +558,7 @@ title("UCE-2 Maximum Likelihood Tree")
 dev.off()
 
 pdf("UCE3_MLtree_fan.pdf", width = 12, height = 12)
-plot(rtre3,
+plot(tre3,
      type = "fan",
      use.edge.length = FALSE,
      cex = 0.5)
@@ -566,7 +566,7 @@ title("UCE-3 Maximum Likelihood Tree")
 dev.off()
 
 pdf("UCE6_MLtree_fan.pdf", width = 12, height = 12)
-plot(rtre6,
+plot(tre6,
      type = "fan",
      use.edge.length = FALSE,
      cex = 0.5)
