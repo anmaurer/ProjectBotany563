@@ -135,7 +135,11 @@ tre13L <- ladderize(tre13)
 tre14L <- ladderize(tre14)
 tre15L <- ladderize(tre15)
 ```
-
+### Calculate bootstrap 
+```
+Uce2D <- as.matrix(Uce2D)
+bs <- boot.phylo(tre2L, Uce2D, function(x) nj(dist.dna(x)), B = 100)
+```
 ### Plot the tree
 ```
 plot(tre2L, cex=.6)
@@ -172,8 +176,9 @@ title("UCE-15")
 ### Plot the tree more legibly (vertical)
 
 ```
-pdf("UCE2_tree_verticalX.pdf", width = 10, height = 20)
+pdf("UCE2_tree_vertical.pdf", width = 10, height = 20)
 plot(tre2L, cex = 0.5)
+nodelabels(bs, cex=0.6)
 title("UCE-2 Distance Tree")
 dev.off() 
 
@@ -528,8 +533,9 @@ nodelabels(rtre15$node.label)
 ```
 tre2 = read.tree(file="uce-2-raxml-boostrap.raxml.support")
 rtre2 = root(tre2, node=151, resolve.root=TRUE)
-pdf("UCE2_MLtree_vertical.pdf", width = 10, height = 20)
+pdf("UCE2_MLtree_verticalX.pdf", width = 10, height = 20)
 plot(rtre2, cex = 0.5)
+nodelabels(rtre2$node.label)
 title("UCE-2 Maximum Likelihood Tree")
 dev.off()
 
