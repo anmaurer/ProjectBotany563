@@ -908,7 +908,54 @@ plot(tre14)
 tre15 = read.nexus(file="uce-15-mb.nex.con.tre")
 plot(tre15)
 ```
+### Plot trees more legibly (vertical)
+```
+tre2 = read.nexus(file="uce-2-mb.nex.con.tre")
+pdf("UCE2_Btree_vertical.pdf", width = 10, height = 20)
+plot(tre2, cex = 0.5)
+title("UCE-2 Bayesian Tree")
+dev.off()
 
+tre3 = read.nexus(file="uce-3-mb.nex.con.tre")
+pdf("UCE3_Btree_vertical.pdf", width = 10, height = 20)
+plot(tre3, cex = 0.5)
+title("UCE-3 Bayesian Tree")
+dev.off()
+
+tre6 = read.nexus(file="uce-6-mb.nex.con.tre")
+pdf("UCE6_Btree_vertical.pdf", width = 10, height = 20)
+plot(tre6, cex = 0.5)
+title("UCE-6 Bayesian Tree")
+dev.off()
+
+```
+
+### Plot tree more legibly (fan)
+```
+pdf("UCE2_Btree_fan.pdf", width = 12, height = 12)
+plot(tre2,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-2 Bayesian Tree")
+dev.off()
+
+pdf("UCE3_Btree_fan.pdf", width = 12, height = 12)
+plot(tre3,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-3 Bayesian Tree")
+dev.off()
+
+pdf("UCE6_Btree_fan.pdf", width = 12, height = 12)
+plot(tre6,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-6 Bayesian Tree")
+dev.off()
+```
 ## Running Astral for Coalescent Methods
 ### Astral only takes Newick files, so concatenate previous treefiles from IQTree in Anabantoid WD
 ```
@@ -927,5 +974,26 @@ java -jar astral.5.7.8.jar -i gene_trees.tre -o out.tre
 library(ape)
 tre = read.tree(file="out.tre")
 plot(tre)
+```
+
+### Plot trees more legibly (vertical)
+```
+tre = read.nexus(file="out.tre")
+pdf("UCE_Atree_vertical.pdf", width = 10, height = 20)
+plot(tre, cex = 0.5)
+title("UCE-2, UCE-3, UCE-6 Astral Tree")
+dev.off()
+```
+
+### Plot tree more legibly (fan)
+```
+pdf("UCE_Atree_fan.pdf", width = 12, height = 12)
+plot(tre,
+     type = "fan",
+     use.edge.length = FALSE,
+     cex = 0.5)
+title("UCE-2, UCE-3, UCE-6 Astral Tree")
+dev.off()
+
 ```
 
