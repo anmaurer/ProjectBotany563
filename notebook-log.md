@@ -172,8 +172,9 @@ title("UCE-15")
 ### Plot the tree more legibly (vertical)
 
 ```
-pdf("UCE2_tree_vertical.pdf", width = 10, height = 20)
+pdf("UCE2_tree_verticalX.pdf", width = 10, height = 20)
 plot(tre2L, cex = 0.5)
+title("UCE-2 Distance Tree")
 dev.off() 
 
 pdf("UCE3_tree_vertical.pdf", width = 10, height = 20)
@@ -334,7 +335,7 @@ plot(tre15.pars, cex=0.6)
 
 ### Plot tree more legibly (Vertical)
 ```
-pdf("UCE2_Ptree_vertical.pdf", width = 10, height = 20)
+pdf("UCE2_Ptree_verticalX.pdf", width = 10, height = 20)
 plot(tre2.pars, cex = 0.5)
 title("UCE-2 Parsimony Tree")
 dev.off()
