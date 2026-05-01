@@ -325,15 +325,7 @@ tre15.pars <- optim.parsimony(tre15.ini, Uce15P)
 ```
 ### Bootstrap Support
 ```
-bs <- bootstrap.phyDat(Uce2P,
-                       FUN = function(x) pratchet(x),
-                       bs = 1000)
-
-plotBS(treeMP, bs, p = 50)
-
-bs <- bootstrap.phyDat(tre2.pars,
-                       FUN = function(x) pratchet(x),
-                       bs = 1000)
+bs <- bootstrap.phyDat(Uce2P, FUN = function(x) pratchet(x),bs = 100)
 ```
 
 ### Plot tree (basic)
@@ -352,8 +344,9 @@ plot(tre15.pars, cex=0.6)
 
 ### Plot tree more legibly (Vertical)
 ```
-pdf("UCE2_Ptree_verticalX.pdf", width = 10, height = 20)
+pdf("UCE2_Ptree_verticalBS.pdf", width = 10, height = 20)
 plot(tre2.pars, cex = 0.5)
+nodelabels(prop.clades(tre2.pars, bs), cex=0.6)
 title("UCE-2 Parsimony Tree")
 dev.off()
 
