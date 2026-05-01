@@ -323,6 +323,18 @@ tre13.pars <- optim.parsimony(tre13.ini, Uce13P)
 tre14.pars <- optim.parsimony(tre14.ini, Uce14P)
 tre15.pars <- optim.parsimony(tre15.ini, Uce15P)
 ```
+### Bootstrap Support
+```
+bs <- bootstrap.phyDat(Uce2P,
+                       FUN = function(x) pratchet(x),
+                       bs = 1000)
+
+plotBS(treeMP, bs, p = 50)
+
+bs <- bootstrap.phyDat(tre2.pars,
+                       FUN = function(x) pratchet(x),
+                       bs = 1000)
+```
 
 ### Plot tree (basic)
 ```
@@ -988,6 +1000,7 @@ plot(tre)
 tre = read.nexus(file="out.tre")
 pdf("UCE_Atree_vertical.pdf", width = 10, height = 20)
 plot(tre, cex = 0.5)
+nodelabels(tre$node.label, cex=0.6)
 title("UCE-2, UCE-3, UCE-6 Astral Tree")
 dev.off()
 ```
