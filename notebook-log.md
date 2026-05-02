@@ -797,7 +797,6 @@ nodelabels(rtre15b$node.label)
 conda install -c bioconda mrbayes
 ```
 ### Create a mrbayes block in a separate text file called mbblock.txt 
-#### This is the tutorial MrBayes Block!! Check to see if your data requires a different block
 
 ```
 begin mrbayes;
@@ -815,14 +814,16 @@ begin mrbayes;
     outgroup Channa_bleheri_48;
 
     mcmc;
-    sumt;
+
+    sumt burnin=2500 contype=allcompat;
+
 end;
 ```
 
 ### Append the MrBayes block to the end of each nexus file 
 
 ```
-cat uce-2.nexus mbblock.txt > uce-2-mb.nex
+cat uce-2.nexus mmmblock.txt > uce-2-mb.nex
 
 cat uce-3.nexus mbblock.txt > uce-3-mb.nex
 
@@ -923,7 +924,7 @@ plot(tre15)
 ### Plot trees more legibly (vertical)
 ```
 tre2 = read.nexus(file="uce-2-mb.nex.con.tre")
-pdf("UCE2_Btree_vertical.pdf", width = 10, height = 20)
+pdf("UCE2_Btree_verticalBS.pdf", width = 10, height = 20)
 plot(tre2, cex = 0.5)
 title("UCE-2 Bayesian Tree")
 dev.off()
@@ -990,7 +991,7 @@ plot(tre)
 
 ### Plot trees more legibly (vertical)
 ```
-tre = read.nexus(file="out.tre")
+tre = read.tree(file="out.tre")
 pdf("UCE_Atree_vertical.pdf", width = 10, height = 20)
 plot(tre, cex = 0.5)
 nodelabels(tre$node.label, cex=0.6)
