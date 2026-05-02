@@ -76,13 +76,6 @@ Uce6 <- read.nexus.data("uce-6.nexus")
 Uce2bin <- nexus2DNAbin(Uce2)
 Uce3bin <- nexus2DNAbin(Uce3)
 Uce6bin <- nexus2DNAbin(Uce6)
-Uce7bin <- nexus2DNAbin(Uce7)
-Uce8bin <- nexus2DNAbin(Uce8)
-Uce9bin <- nexus2DNAbin(Uce9)
-Uce11bin <- nexus2DNAbin(Uce11)
-Uce13bin <- nexus2DNAbin(Uce13)
-Uce14bin <- nexus2DNAbin(Uce14)
-Uce15bin <- nexus2DNAbin(Uce15)
 ```
 
 ### Computing the genetic distances
