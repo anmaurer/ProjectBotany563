@@ -10,7 +10,7 @@ Dataset available from:
 https://datadryad.org/dataset/doi:10.5061/dryad.59zw3r2c0 
 
 Dataset summary:
-Mitochondrial and nuclear nucleotide sequence data was used to construct a phylogeny of anabantoids. The mitochondrial data set included the complete cytochrome b, partial 12S rRNA, complete tRNA Val, and partial 16S rRNA genes (3332 bp) of 57 species representing all 19 anabantoid genera. The nuclear data set included the partial RAG1 gene (1494 bp) of 21 representative species
+The authors obtained UCE DNA sequence data through hybrid enrichment of genomic libraries. DNA samples were prepared using Kapa HyperPrep kits and UCE probes were designed to target ~1300 ultraconserved elements from the clade Acanthomorpha. Illumina HiSeq4000 was used to perform sequencing. Data was processed and aligned by the authors using the software Phyluce before download. 
 
 ## All Software Used 
 | Software | Description | Strengths | Weaknesses | Assumptions | User Choices |
@@ -23,6 +23,7 @@ Mitochondrial and nuclear nucleotide sequence data was used to construct a phylo
 |Astral|Coalescent method for reconstructing species tree after inferring a set of gene trees.|Statistically consistent under the multi-species coalescent model, is scalable, and has shown high accuracy in simulated and empirical studies. |Astral can be sensitive to gene tree estimation error. Astral is statistically inconsistent under models of gene evolution that include gene flow.|Assumes Multi-species coalescent model, maxmizes the number of shared quartet trees with the input gene trees which must be unrooted.|User must provide Newick format gene trees|
 
 ## Data alignment with MUSCLE
+*I did not do this step since the data was already aligned before download.*
 ### Installation 
 1. Install Miniconda (https://www.anaconda.com/docs/getting-started/miniconda/main)
 - Miniconda is a minimal installer for Anaconda that includes only Conda (environment manager), Python, and a few essentail packages
@@ -47,7 +48,7 @@ muscle -align anabantoid.fasta -output aligned_anabantoid.fasta
 ** Data not given in unaligned FASTA format, data given in already aligned Nexus files, so this step not run. Data given as UCE_loci_75p_complete.gzip   > gzip directory of nexus-formatted alignments for individual UCE loci. All alignments in this directory contain at least 75% of taxa in our total dataset. **
 
 ## Distance Tree Calculations
---> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
+--> I chose the first 3 UCE files (2, 3, 6) from the data set to make trees for 
 
 ### Set working directory in terminal then open R 
 
@@ -69,13 +70,6 @@ library(phangorn)
 Uce2 <- read.nexus.data("uce-2.nexus")
 Uce3 <- read.nexus.data("uce-3.nexus")
 Uce6 <- read.nexus.data("uce-6.nexus")
-Uce7 <- read.nexus.data("uce-7.nexus")
-Uce8 <- read.nexus.data("uce-8.nexus")
-Uce9 <- read.nexus.data("uce-9.nexus")
-Uce11 <- read.nexus.data("uce-11.nexus")
-Uce13 <- read.nexus.data("uce-13.nexus")
-Uce14 <- read.nexus.data("uce-14.nexus")
-Uce15 <- read.nexus.data("uce-15.nexus")
 ```
 ### Convert list to DNAbin
 ```
@@ -98,13 +92,6 @@ Tamura and Nei 1993 model chosen, which allows for different rates of transition
 Uce2D <- dist.dna(Uce2bin, model="TN93")
 Uce3D <- dist.dna(Uce3bin, model="TN93")
 Uce6D <- dist.dna(Uce6bin, model="TN93")
-Uce7D <- dist.dna(Uce7bin, model="TN93")
-Uce8D <- dist.dna(Uce8bin, model="TN93")
-Uce9D <- dist.dna(Uce9bin, model="TN93")
-Uce11D <- dist.dna(Uce11bin, model="TN93")
-Uce13D <- dist.dna(Uce13bin, model="TN93")
-Uce14D <- dist.dna(Uce14bin, model="TN93")
-Uce15D <- dist.dna(Uce15bin, model="TN93")
 ```
 
 ### Get the NJ tree
@@ -112,13 +99,6 @@ Uce15D <- dist.dna(Uce15bin, model="TN93")
 tre2 <- nj(Uce2D)
 tre3 <- nj(Uce3D)
 tre6 <- nj(Uce6D)
-tre7 <- nj(Uce7D)
-tre8 <- nj(Uce8D)
-tre9 <- nj(Uce9D)
-tre11 <- nj(Uce11D)
-tre13 <- nj(Uce13D)
-tre14 <- nj(Uce14D)
-tre15 <- nj(Uce15D)
 ```
 
 ### Ladderize
@@ -127,20 +107,19 @@ Before plotting, we can use the ladderize function which reorganizes the interna
 tre2L <- ladderize(tre2)
 tre3L <- ladderize(tre3)
 tre6L <- ladderize(tre6)
-tre7L <- ladderize(tre7)
-tre8L <- ladderize(tre8)
-tre9L <- ladderize(tre9)
-tre11L <- ladderize(tre11)
-tre13L <- ladderize(tre13)
-tre14L <- ladderize(tre14)
-tre15L <- ladderize(tre15)
 ```
-### Calculate bootstrap 
+### Calculate bootstrap support values
 ```
 Uce2D <- as.matrix(Uce2D)
-bs <- boot.phylo(tre2L, Uce2D, function(x) nj(dist.dna(x)), B = 100)
+bs2 <- boot.phylo(tre2L, Uce2D, function(x) nj(dist.dna(x)), B = 100)
+
+Uce3D <- as.matrix(Uce3D)
+bs <- boot.phylo(tre3L, Uce3D, function(x) nj(dist.dna(x)), B = 100)
+
+Uce6D <- as.matrix(Uce6D)
+bs <- boot.phylo(tre6L, Uce6D, function(x) nj(dist.dna(x)), B = 100)
 ```
-### Plot the tree
+### Plot the tree (simple plot to check)
 ```
 plot(tre2L, cex=.6)
 title("UCE-2")
@@ -150,76 +129,31 @@ title("UCE-3")
 
 plot(tre6L, cex=.6)
 title("UCE-6")
-
-plot(tre7L, cex=.6)
-title("UCE-7")
-
-plot(tre8L, cex=.6)
-title("UCE-8")
-
-plot(tre9L, cex=.6)
-title("UCE-9")
-
-plot(tre11L, cex=.6)
-title("UCE-11")
-
-plot(tre13L, cex=.6)
-title("UCE-13")
-
-plot(tre14L, cex=.6)
-title("UCE-14")
-
-plot(tre15L, cex=.6)
-title("UCE-15")
 ```
 
-### Plot the tree more legibly (vertical)
-
+### Plot the tree more legibly (vertical plot)
 ```
 pdf("UCE2_tree_vertical.pdf", width = 10, height = 20)
 plot(tre2L, cex = 0.5)
-nodelabels(bs, cex=0.6)
+nodelabels(bs2, cex=0.6)
 title("UCE-2 Distance Tree")
 dev.off() 
 
 pdf("UCE3_tree_vertical.pdf", width = 10, height = 20)
 plot(tre3L, cex = 0.5)
+nodelabels(bs3, cex=0.6)
+title("UCE-3 Distance Tree")
 dev.off() 
 
 pdf("UCE6_tree_vertical.pdf", width = 10, height = 20)
 plot(tre6L, cex = 0.5)
+nodelabels(bs6, cex=0.6)
+title("UCE-6 Distance Tree")
 dev.off() 
 ```
 
-### Plot the tree more legibly (fan)
-```
-pdf("UCE2_tree.pdf", width = 12, height = 12)
-plot(tre2L,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-2")
-dev.off()
-
-pdf("UCE3_tree.pdf", width = 12, height = 12)
-plot(tre3L,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-3")
-dev.off()
-
-pdf("UCE6_tree.pdf", width = 12, height = 12)
-plot(tre6L,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-6")
-dev.off()
-```
-
 ## Parsimony Tree Calculations
---> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
+--> I chose the first 3 UCE files (2, 3, 6) from the data set to make trees for 
 
 ### Set working directory in terminal then open R 
 
@@ -287,27 +221,6 @@ parsimony(tre3.ini, Uce3P)
 
 tre6.ini <- nj(dist.dna(Uce6bin,model="raw"))
 parsimony(tre6.ini, Uce6P)
-
-tre7.ini <- nj(dist.dna(Uce2bin,model="raw"))
-parsimony(tre7.ini, Uce7P)
-
-tre8.ini <- nj(dist.dna(Uce8bin,model="raw"))
-parsimony(tre8.ini, Uce8P)
-
-tre9.ini <- nj(dist.dna(Uce9bin,model="raw"))
-parsimony(tre9.ini, Uce9P)
-
-tre11.ini <- nj(dist.dna(Uce11bin,model="raw"))
-parsimony(tre11.ini, Uce11P)
-
-tre13.ini <- nj(dist.dna(Uce13bin,model="raw"))
-parsimony(tre13.ini, Uce13P)
-
-tre14.ini <- nj(dist.dna(Uce14bin,model="raw"))
-parsimony(tre14.ini, Uce14P)
-
-tre15.ini <- nj(dist.dna(Uce15bin,model="raw"))
-parsimony(tre15.ini, Uce15P)
 ```
 
 ### Search for the tree with maximum parsimony 
@@ -315,17 +228,12 @@ parsimony(tre15.ini, Uce15P)
 tre2.pars <- optim.parsimony(tre2.ini, Uce2P)
 tre3.pars <- optim.parsimony(tre3.ini, Uce3P)
 tre6.pars <- optim.parsimony(tre6.ini, Uce6P)
-tre7.pars <- optim.parsimony(tre7.ini, Uce7P)
-tre8.pars <- optim.parsimony(tre8.ini, Uce8P)
-tre9.pars <- optim.parsimony(tre9.ini, Uce9P)
-tre11.pars <- optim.parsimony(tre11.ini, Uce11P)
-tre13.pars <- optim.parsimony(tre13.ini, Uce13P)
-tre14.pars <- optim.parsimony(tre14.ini, Uce14P)
-tre15.pars <- optim.parsimony(tre15.ini, Uce15P)
 ```
-### Bootstrap Support
+### Bootstrap support calculations
 ```
-bs <- bootstrap.phyDat(Uce2P, FUN = function(x) pratchet(x),bs = 100)
+bs2 <- bootstrap.phyDat(Uce2P, FUN = function(x) pratchet(x),bs = 100)
+bs3 <- bootstrap.phyDat(Uce3P, FUN = function(x) pratchet(x),bs = 100)
+bs6 <- bootstrap.phyDat(Uce6P, FUN = function(x) pratchet(x),bs = 100)
 ```
 
 ### Plot tree (basic)
@@ -333,63 +241,31 @@ bs <- bootstrap.phyDat(Uce2P, FUN = function(x) pratchet(x),bs = 100)
 plot(tre2.pars, cex=0.6)
 plot(tre3.pars, cex=0.6)
 plot(tre6.pars, cex=0.6)
-plot(tre7.pars, cex=0.6)
-plot(tre8.pars, cex=0.6)
-plot(tre9.pars, cex=0.6)
-plot(tre11.pars, cex=0.6)
-plot(tre13.pars, cex=0.6)
-plot(tre14.pars, cex=0.6)
-plot(tre15.pars, cex=0.6)
 ```
 
 ### Plot tree more legibly (Vertical)
 ```
 pdf("UCE2_Ptree_verticalBS.pdf", width = 10, height = 20)
 plot(tre2.pars, cex = 0.5)
-nodelabels(prop.clades(tre2.pars, bs), cex=0.6)
+nodelabels(prop.clades(tre2.pars, bs2), cex=0.6)
 title("UCE-2 Parsimony Tree")
 dev.off()
 
 pdf("UCE3_Ptree_vertical.pdf", width = 10, height = 20)
 plot(tre3.pars, cex = 0.5)
+nodelabels(prop.clades(tre2.pars, bs3), cex=0.6)
 title("UCE-3 Parsimony Tree")
 dev.off()
 
 pdf("UCE6_Ptree_vertical.pdf", width = 10, height = 20)
 plot(tre6.pars, cex = 0.5)
-title("UCE-6 Parsimony Tree")
-dev.off()
-```
-
-### Plot tree more legibly (Fan)
-```
-pdf("UCE2_Ptree_fan.pdf", width = 12, height = 12)
-plot(tre2.pars,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-2 Parsimony Tree")
-dev.off()
-
-pdf("UCE3_Ptree_fan.pdf", width = 12, height = 12)
-plot(tre3.pars,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-3 Parsimony Tree")
-dev.off()
-
-pdf("UCE6_Ptree_fan.pdf", width = 12, height = 12)
-plot(tre6.pars,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
+nodelabels(prop.clades(tre2.pars, bs6), cex=0.6)
 title("UCE-6 Parsimony Tree")
 dev.off()
 ```
 
 ## Maximum Likelihood Tree Calculations
---> I chose the first 10 UCE files (2, 3, 6, 7, 8, 9, 11, 13, 14, 15) from the data set to make trees for 
+--> I chose the first 10 UCE files (2, 3, 6) from the data set to make trees for 
 
 ## RAxML 
 ###  Download RAxML
@@ -408,27 +284,6 @@ write.dna(alignment3, file = "uce-3.phy", format = "sequential")
 
 alignment6 <- read.nexus.data("uce-6.nexus")
 write.dna(alignment6, file = "uce-6.phy", format = "sequential")
-
-alignment7 <- read.nexus.data("uce-7.nexus")
-write.dna(alignment7, file = "uce-7.phy", format = "sequential")
-
-alignment8 <- read.nexus.data("uce-8.nexus")
-write.dna(alignment8, file = "uce-8.phy", format = "sequential")
-
-alignment9 <- read.nexus.data("uce-9.nexus")
-write.dna(alignment9, file = "uce-9.phy", format = "sequential")
-
-alignment11 <- read.nexus.data("uce-11.nexus")
-write.dna(alignment11, file = "uce-11.phy", format = "sequential")
-
-alignment13 <- read.nexus.data("uce-13.nexus")
-write.dna(alignment13, file = "uce-13.phy", format = "sequential")
-
-alignment14 <- read.nexus.data("uce-14.nexus")
-write.dna(alignment14, file = "uce-14.phy", format = "sequential")
-
-alignment15 <- read.nexus.data("uce-15.nexus")
-write.dna(alignment15, file = "uce-15.phy", format = "sequential")
 ```
 
 ### Run RAxML to calculate the ML tree
@@ -439,20 +294,6 @@ raxml-ng --msa uce-2.phy --model LG+G8+F
 raxml-ng --msa uce-3.phy --model LG+G8+F
 
 raxml-ng --msa uce-6.phy --model LG+G8+F
-
-raxml-ng --msa uce-7.phy --model LG+G8+F
-
-raxml-ng --msa uce-8.phy --model LG+G8+F
-
-raxml-ng --msa uce-9.phy --model LG+G8+F
-
-raxml-ng --msa uce-11.phy --model LG+G8+F
-
-raxml-ng --msa uce-13.phy --model LG+G8+F
-
-raxml-ng --msa uce-14.phy --model LG+G8+F
-
-raxml-ng --msa uce-15.phy --model LG+G8+F
 ```
 
 ### Run both ML and Bootstrap (!! Takes forever !!) 
@@ -463,20 +304,6 @@ raxml-ng --all --msa uce-2.phy --model LG+G8+F --bs-trees 100 --prefix uce-2-rax
 raxml-ng --all --msa uce-3.phy --model LG+G8+F --bs-trees 100 --prefix uce-3-raxml-boostrap
 
 raxml-ng --all --msa uce-6.phy --model LG+G8+F --bs-trees 100 --prefix uce-6-raxml-boostrap
-
-raxml-ng --all --msa uce-7.phy --model LG+G8+F --bs-trees 100 --prefix uce-7-raxml-boostrap
-
-raxml-ng --all --msa uce-8.phy --model LG+G8+F --bs-trees 100 --prefix uce-8-raxml-boostrap
-
-raxml-ng --all --msa uce-9.phy --model LG+G8+F --bs-trees 100 --prefix uce-9-raxml-boostrap
-
-raxml-ng --all --msa uce-11.phy --model LG+G8+F --bs-trees 100 --prefix uce-11-raxml-boostrap
-
-raxml-ng --all --msa uce-13.phy --model LG+G8+F --bs-trees 100 --prefix uce-13-raxml-boostrap
-
-raxml-ng --all --msa uce-14.phy --model LG+G8+F --bs-trees 100 --prefix uce-14-raxml-boostrap
-
-raxml-ng --all --msa uce-15.phy --model LG+G8+F --bs-trees 100 --prefix uce-15-raxml-boostrap
 ```
 
 ### Root and plot tree (Open R)
@@ -498,42 +325,8 @@ tre6 = read.tree(file="uce-6-raxml-boostrap.raxml.support")
 rtre6 = root(tre6, node=151, resolve.root=TRUE)
 plot(rtre6)
 nodelabels(rtre6$node.label)
-
-tre7 = read.tree(file="uce-7-raxml-boostrap.raxml.support")
-rtre7 = root(tre7, node=151, resolve.root=TRUE)
-plot(rtre7)
-nodelabels(rtre7$node.label)
-
-tre8 = read.tree(file="uce-8-raxml-boostrap.raxml.support")
-rtre8 = root(tre8, node=151, resolve.root=TRUE)
-plot(rtre8)
-nodelabels(rtre8$node.label)
-
-tre9 = read.tree(file="uce-9-raxml-boostrap.raxml.support")
-rtre9 = root(tre9, node=151, resolve.root=TRUE)
-plot(rtre9)
-nodelabels(rtre9$node.label)
-
-tre11 = read.tree(file="uce-11-raxml-boostrap.raxml.support")
-rtre11 = root(tre11, node=151, resolve.root=TRUE)
-plot(rtre11)
-nodelabels(rtre11$node.label)
-
-tre13 = read.tree(file="uce-13-raxml-boostrap.raxml.support")
-rtre13 = root(tre13, node=151, resolve.root=TRUE)
-plot(rtre13)
-nodelabels(rtre13$node.label)
-
-tre14 = read.tree(file="uce-14-raxml-boostrap.raxml.support")
-rtre14 = root(tre14, node=151, resolve.root=TRUE)
-plot(rtre14)
-nodelabels(rtre14$node.label)
-
-tre15 = read.tree(file="uce-15-raxml-boostrap.raxml.support")
-rtre15 = root(tre15, node=151, resolve.root=TRUE)
-plot(rtre15)
-nodelabels(rtre15$node.label)
 ```
+
 ### Plot tree more legibly (vertical)
 ```
 tre2 = read.tree(file="uce-2-raxml-boostrap.raxml.support")
@@ -559,34 +352,8 @@ title("UCE-6 Maximum Likelihood Tree")
 dev.off()
 ```
 
-### Plot tree more legibly (fan)
-```
-pdf("UCE2_MLtree_fan.pdf", width = 12, height = 12)
-plot(rtre2,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-2 Maximum Likelihood Tree")
-dev.off()
-
-pdf("UCE3_MLtree_fan.pdf", width = 12, height = 12)
-plot(tre3,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-3 Maximum Likelihood Tree")
-dev.off()
-
-pdf("UCE6_MLtree_fan.pdf", width = 12, height = 12)
-plot(tre6,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-6 Maximum Likelihood Tree")
-dev.off()
-```
-
 ## IQtree
+*Another way to conduct a maximum likelihood analysis. This is not the analysis I used in my paper, however, I did include the models that IQtree determined in downstream Bayesian analysis* 
 ### Download IQtree 
 https://iqtree.github.io/ 
 
@@ -615,27 +382,6 @@ plot(tre3)
 
 tre6 = read.tree(file="uce-6.nexus.treefile")
 plot(tre6)
-
-tre7 = read.tree(file="uce-7.nexus.treefile")
-plot(tre7)
-
-tre8 = read.tree(file="uce-8.nexus.treefile")
-plot(tre8)
-
-tre9 = read.tree(file="uce-9.nexus.treefile")
-plot(tre9)
-
-tre11 = read.tree(file="uce-11.nexus.treefile")
-plot(tre11)
-
-tre13 = read.tree(file="uce-13.nexus.treefile")
-plot(tre13)
-
-tre14 = read.tree(file="uce-14.nexus.treefile")
-plot(tre14)
-
-tre15 = read.tree(file="uce-15.nexus.treefile")
-plot(tre15)
 ```
 
 ### Root tree
@@ -654,41 +400,6 @@ plot(tre6)
 nodelabels()
 rtre = root(tre6, node=151, resolve.root=TRUE)
 plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
-
-plot(tre7)
-nodelabels()
-rtre = root(tre7, node=151, resolve.root=TRUE)
-plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
-
-plot(tre8)
-nodelabels()
-rtre = root(tre8, node=151, resolve.root=TRUE)
-plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
-
-plot(tre9)
-nodelabels()
-rtre = root(tre9, node=151, resolve.root=TRUE)
-plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
-
-plot(tre11)
-nodelabels()
-rtre = root(tre11, node=151, resolve.root=TRUE)
-plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
-
-plot(tre13)
-nodelabels()
-rtre = root(tre13, node=151, resolve.root=TRUE)
-plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
-
-plot(tre14)
-nodelabels()
-rtre = root(tre14, node=151, resolve.root=TRUE)
-plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
-
-plot(tre15)
-nodelabels()
-rtre = root(tre15, node=151, resolve.root=TRUE)
-plot(rtre, type = "phylogram", cex = 0.3, no.margin = TRUE)
 ```
 
 ### Close R
@@ -699,20 +410,6 @@ iqtree -s uce-2.nexus -m TPM3u+I+R4 -b 10 -pre uce-2.nexus-iqtree-bootstrap
 iqtree -s uce-3.nexus -m XXXXXXXX T -b 10 -pre uce-3.nexus-iqtree-bootstrap
 
 iqtree -s uce-6.nexus -m XXXXXXXX -b 10 -pre uce-6.nexus-iqtree-bootstrap
-
-iqtree -s uce-7.nexus -m XXXXXXXX -b 10 -pre uce-7.nexus-iqtree-bootstrap
-
-iqtree -s uce-8.nexus -m XXXXXXXX -b 10 -pre uce-8.nexus-iqtree-bootstrap
-
-iqtree -s uce-9.nexus -m XXXXXXXX -b 10 -pre uce-9.nexus-iqtree-bootstrap
-
-iqtree -s uce-11.nexus -m XXXXXXXX -b 10 -pre uce-11.nexus-iqtree-bootstrap
-
-iqtree -s uce-13.nexus -m XXXXXXXX -b 10 -pre uce-13.nexus-iqtree-bootstrap
-
-iqtree -s uce-14.nexus -m XXXXXXXX -b 10 -pre uce-14.nexus-iqtree-bootstrap
-
-iqtree -s uce-15.nexus -m XXXXXXXX -b 10 -pre uce-15.nexus-iqtree-bootstrap
 ```
 
 ### Open R
@@ -740,57 +437,8 @@ nodelabels()
 rtre6b = root(tre6b, node=151, resolve.root=TRUE)
 plot(rtre6b, type = "phylogram", cex = 0.3, no.margin = TRUE)
 nodelabels(rtre6b$node.label)
-
-tre7b = read.tree(file="uce-7.nexus-iqtree-bootstrap.treefile")
-plot(tre7b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels()
-rtre7b = root(tre7b, node=151, resolve.root=TRUE)
-plot(rtre7b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels(rtre7b$node.label)
-
-tre8b = read.tree(file="uce-8.nexus-iqtree-bootstrap.treefile")
-plot(tre8b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels()
-rtre8b = root(tre8b, node=151, resolve.root=TRUE)
-plot(rtre8b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels(rtre8b$node.label)
-
-tre9b = read.tree(file="uce-9.nexus-iqtree-bootstrap.treefile")
-plot(tre9b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels()
-rtre9b = root(tre9b, node=151, resolve.root=TRUE)
-plot(rtre9b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels(rtre9b$node.label)
-
-tre11b = read.tree(file="uce-11.nexus-iqtree-bootstrap.treefile")
-plot(tre11b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels()
-rtre11b = root(tre11b, node=151, resolve.root=TRUE)
-plot(rtre11b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels(rtre11b$node.label)
-
-tre13b = read.tree(file="uce-13.nexus-iqtree-bootstrap.treefile")
-plot(tre13b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels()
-rtre13b = root(tre13b, node=151, resolve.root=TRUE)
-plot(rtre13b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels(rtre13b$node.label)
-
-tre14b = read.tree(file="uce-14.nexus-iqtree-bootstrap.treefile")
-plot(tre14b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels()
-rtre14b = root(tre14b, node=151, resolve.root=TRUE)
-plot(rtre14b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels(rtre14b$node.label)
-
-tre15b = read.tree(file="uce-15.nexus-iqtree-bootstrap.treefile")
-plot(tre15b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels()
-rtre15b = root(tre15b, node=151, resolve.root=TRUE)
-plot(rtre15b, type = "phylogram", cex = 0.3, no.margin = TRUE)
-nodelabels(rtre15b$node.label)
 ```
-## MrBayes 
+## Bayesian Inference Phylogenetic Method (MrBayes) 
 ### Download MrBayes
 
 ```
@@ -828,20 +476,6 @@ cat uce-2.nexus mmmblock.txt > uce-2-mb.nex
 cat uce-3.nexus mbblock.txt > uce-3-mb.nex
 
 cat uce-6.nexus mbblock.txt > uce-6-mb.nex
-
-cat uce-7.nexus mbblock.txt > uce-7-mb.nex
-
-cat uce-8.nexus mbblock.txt > uce-8-mb.nex
-
-cat uce-9.nexus mbblock.txt > uce-9-mb.nex
-
-cat uce-11.nexus mbblock.txt > uce-11-mb.nex
-
-cat uce-13.nexus mbblock.txt > uce-13-mb.nex
-
-cat uce-14.nexus mbblock.txt > uce-14-mb.nex
-
-cat uce-15.nexus mbblock.txt > uce-15-mb.nex
 ```
 
 ### Run MrBayes
@@ -852,20 +486,6 @@ mb uce-2-mb.nex
 mb uce-3-mb.nex
 
 mb uce-6-mb.nex
-
-mb uce-7-mb.nex
-
-mb uce-8-mb.nex
-
-mb uce-9-mb.nex
-
-mb uce-11-mb.nex
-
-mb uce-13-mb.nex
-
-mb uce-14-mb.nex
-
-mb uce-15-mb.nex
 ```
 
 ### Uce Tracer to access if the chain converged and had good mixing 
@@ -899,27 +519,6 @@ plot(tre3)
 
 tre6 = read.nexus(file="uce-6-mb.nex.con.tre")
 plot(tre6)
-
-tre7 = read.nexus(file="uce-7-mb.nex.con.tre")
-plot(tre7)
-
-tre8 = read.nexus(file="uce-8-mb.nex.con.tre")
-plot(tre8)
-
-tre9 = read.nexus(file="uce-9-mb.nex.con.tre")
-plot(tre9)
-
-tre11 = read.nexus(file="uce-11-mb.nex.con.tre")
-plot(tre11)
-
-tre13 = read.nexus(file="uce-13-mb.nex.con.tre")
-plot(tre13)
-
-tre14 = read.nexus(file="uce-14-mb.nex.con.tre")
-plot(tre14)
-
-tre15 = read.nexus(file="uce-15-mb.nex.con.tre")
-plot(tre15)
 ```
 ### Plot trees more legibly (vertical)
 ```
@@ -940,37 +539,11 @@ pdf("UCE6_Btree_vertical.pdf", width = 10, height = 20)
 plot(tre6, cex = 0.5)
 title("UCE-6 Bayesian Tree")
 dev.off()
-
 ```
 
-### Plot tree more legibly (fan)
-```
-pdf("UCE2_Btree_fan.pdf", width = 12, height = 12)
-plot(tre2,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-2 Bayesian Tree")
-dev.off()
-
-pdf("UCE3_Btree_fan.pdf", width = 12, height = 12)
-plot(tre3,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-3 Bayesian Tree")
-dev.off()
-
-pdf("UCE6_Btree_fan.pdf", width = 12, height = 12)
-plot(tre6,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-6 Bayesian Tree")
-dev.off()
-```
-## Running Astral for Coalescent Methods
+## Coalescent Methods (Astral)
 ### Astral only takes Newick files, so concatenate previous treefiles from IQTree in Anabantoid WD
+*I used the UCE2, UCE3, and UCE6 files*
 ```
 cat *.treefile > gene_trees.tre
 ```
@@ -978,7 +551,6 @@ cat *.treefile > gene_trees.tre
 ### Move file to ASTRAL WD
 ### Run ASTRAL
 ```
-
 java -jar astral.5.7.8.jar -i gene_trees.tre -o out.tre
 ```
 
@@ -989,7 +561,7 @@ tre = read.tree(file="out.tre")
 plot(tre)
 ```
 
-### Plot trees more legibly (vertical)
+### Plot tree more legibly (vertical)
 ```
 tre = read.tree(file="out.tre")
 pdf("UCE_Atree_vertical.pdf", width = 10, height = 20)
@@ -999,15 +571,4 @@ title("UCE-2, UCE-3, UCE-6 Astral Tree")
 dev.off()
 ```
 
-### Plot tree more legibly (fan)
-```
-pdf("UCE_Atree_fan.pdf", width = 12, height = 12)
-plot(tre,
-     type = "fan",
-     use.edge.length = FALSE,
-     cex = 0.5)
-title("UCE-2, UCE-3, UCE-6 Astral Tree")
-dev.off()
-
-```
 
