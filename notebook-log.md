@@ -334,13 +334,6 @@ https://iqtree.github.io/
 iqtree3 -s uce-2.nexus
 iqtree3 -s uce-3.nexus
 iqtree3 -s uce-6.nexus
-iqtree3 -s uce-7.nexus
-iqtree3 -s uce-8.nexus
-iqtree3 -s uce-9.nexus
-iqtree3 -s uce-11.nexus
-iqtree3 -s uce-13.nexus
-iqtree3 -s uce-14.nexus
-iqtree3 -s uce-15.nexus
 ```
 
 ### Check plot in R
