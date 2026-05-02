@@ -507,7 +507,7 @@ dev.off()
 ```
 
 ## Coalescent Methods (Astral)
-### Astral only takes Newick files, so concatenate previous treefiles from IQTree in Anabantoid WD
+### Astral only takes Newick files, so concatenate previous treefiles from IQTree 
 *I used the UCE2, UCE3, and UCE6 files*
 ```
 cat *.treefile > gene_trees.tre
@@ -535,5 +535,6 @@ nodelabels(tre$node.label, cex=0.6)
 title("UCE-2, UCE-3, UCE-6 Astral Tree")
 dev.off()
 ```
-
+### BEAST
+*I did not run BEAST, since my computer was not able to computationally handle it with this large of a dataset*
 
