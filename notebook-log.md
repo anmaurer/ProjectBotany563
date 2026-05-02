@@ -79,7 +79,7 @@ Uce6bin <- nexus2DNAbin(Uce6)
 ```
 
 ### Computing the genetic distances
-Tamura and Nei 1993 model chosen, which allows for different rates of transitions and transversions, heterogeneous base frequencies, and between-site variation of the substitution rate (more on Models of Evolution).
+Tamura and Nei 1993 model chosen, which allows for different rates of transitions and transversions, heterogeneous base frequencies, and between-site variation of the substitution rate.
 
 ```
 Uce2D <- dist.dna(Uce2bin, model="TN93")
@@ -168,13 +168,6 @@ library(phangorn)
 Uce2 <- read.nexus.data("uce-2.nexus")
 Uce3 <- read.nexus.data("uce-3.nexus")
 Uce6 <- read.nexus.data("uce-6.nexus")
-Uce7 <- read.nexus.data("uce-7.nexus")
-Uce8 <- read.nexus.data("uce-8.nexus")
-Uce9 <- read.nexus.data("uce-9.nexus")
-Uce11 <- read.nexus.data("uce-11.nexus")
-Uce13 <- read.nexus.data("uce-13.nexus")
-Uce14 <- read.nexus.data("uce-14.nexus")
-Uce15 <- read.nexus.data("uce-15.nexus")
 ```
 
 ### Convert list to DNAbin
@@ -182,13 +175,6 @@ Uce15 <- read.nexus.data("uce-15.nexus")
 Uce2bin <- nexus2DNAbin(Uce2)
 Uce3bin <- nexus2DNAbin(Uce3)
 Uce6bin <- nexus2DNAbin(Uce6)
-Uce7bin <- nexus2DNAbin(Uce7)
-Uce8bin <- nexus2DNAbin(Uce8)
-Uce9bin <- nexus2DNAbin(Uce9)
-Uce11bin <- nexus2DNAbin(Uce11)
-Uce13bin <- nexus2DNAbin(Uce13)
-Uce14bin <- nexus2DNAbin(Uce14)
-Uce15bin <- nexus2DNAbin(Uce15)
 ```
 
 ### Convert to phanghorn object
@@ -196,13 +182,6 @@ Uce15bin <- nexus2DNAbin(Uce15)
 Uce2P <- as.phyDat(Uce2bin)
 Uce3P <- as.phyDat(Uce3bin)
 Uce6P <- as.phyDat(Uce6bin)
-Uce7P <- as.phyDat(Uce7bin)
-Uce8P <- as.phyDat(Uce8bin)
-Uce9P <- as.phyDat(Uce9bin)
-Uce11P <- as.phyDat(Uce11bin)
-Uce13P <- as.phyDat(Uce13bin)
-Uce14P <- as.phyDat(Uce14bin)
-Uce15P <- as.phyDat(Uce15bin)
 ```
 ### Create a starting tree for the search on tree space and compute the parsimony score of this tree 
 ```
